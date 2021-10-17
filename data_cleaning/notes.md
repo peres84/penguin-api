@@ -37,7 +37,7 @@
         }
 
 ## 2. Collection
-### species_details {
+### distribution_details {
 
     "species" : ["chinstrap", "adelie", "gentoo"], 
     "average_weight": {"chinstrap": promedio, "adelie": promedio, "gentoo":promedio},
