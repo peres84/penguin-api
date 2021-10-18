@@ -5,6 +5,16 @@ from src.utils.error import errorHandling, MissingArgumentError
 from src.utils.mongoConnection import penguin_breeding_signy
 
 
+@app.route("/penguin/breeding/year/all")
+@errorHandling
+@serialize
+def breeding_year_all():
+    limit = request.args.get("limit")
+    limit = 5 if not limit else int(limit)
+    breeding_year = penguin_breeding_signy.find({}).sort("year", 1).limit(limit)
+    return breeding_year
+
+
 #http://127.0.0.1:5000/penguin/breeding/year?max=2000&min=1990
 @app.route("/penguin/breeding/year")
 @errorHandling
