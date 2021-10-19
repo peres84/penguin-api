@@ -3,5 +3,6 @@ from src.controllers.penguin_details import app
 from src.controllers.distribution_details import app
 from src.controllers.penguin_breeding import app
 from src.controllers.welcome_test import app
+from src.controllers.add import app
 
 app.run(debug=True)

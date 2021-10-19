@@ -14,7 +14,8 @@ def list_species():
     limit = request.args.get("limit")
     limit = 5 if not limit else int(limit)
     if not island:
-        all_species = penguin_details.find({}).distinct("specie")
+        #all_species = penguin_details.find({}).distinct("specie")
+        all_species = penguin_details.find({})
     else:
         print(island)
         q = {"location.island":island.capitalize()}

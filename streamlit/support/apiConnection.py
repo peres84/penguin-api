@@ -13,9 +13,13 @@ def distribution_details():
     distribution = requests.get(url).json()[0]
     return distribution
 
+def all_details_penguin():
+    url = "http://127.0.0.1:5000//penguin/especies/list"
+    all_distribution = requests.get(url).json()[0]
+    return all_distribution
 
 def breeding_preguin():
     url = "http://127.0.0.1:5000/penguin/breeding/year/all?limit=50"
-    population = requests.get(url).json()[0]
+    population = requests.get(url).json()
     return population
 
