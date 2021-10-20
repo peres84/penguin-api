@@ -9,6 +9,8 @@ import folium
 
 #@st.cache(allow_output_mutation=True, max_entries=1)
 def island_module():
+
+
     island = st.selectbox('Select the Island', ['Dream', 'Torgersen', 'Biscoe']).lower()
     species = st.multiselect('Choose the penguins to evalue the population', ['Adelie Penguin', 'Gentoo penguin', 'Chinstrap penguin'])
     #st.write(species)
@@ -28,17 +30,19 @@ def island_module():
     #st.write(lst)
     df_total = pd.DataFrame(lst_sex).T
     df_total = df_total.rename(columns={0:'Sex', 1:'Count'})
+    col1, col2 = st.columns([1,2])
+    with col2:
+        #st.write(df_total)
+        fig = px.pie(df_total, values='Count', names='Sex', title=f'Population of penguins in {island}')
+        st.plotly_chart(fig, use_container_width=True)
 
-    #st.write(df_total)
-    fig = px.pie(df_total, values='Count', names='Sex', title=f'Population of penguins in {island}')
-    st.plotly_chart(fig, use_container_width=True)
-
-    data_island = distribution_details()
-    st.subheader(f'Distribution in {island.capitalize()}')
-    dfa = data_island['total_penguins_by_sex']['by_island'][island]['famele']
-    dm = data_island['total_penguins_by_sex']['by_island'][island]['male']
-    df = pd.DataFrame({'Famele': [dfa], 'Male':[dm], 'Total': dfa+dm})
-    st.write(df)
+    with col1:
+        data_island = distribution_details()
+        st.subheader(f'Distribution in {island.capitalize()}')
+        dfa = data_island['total_penguins_by_sex']['by_island'][island]['famele']
+        dm = data_island['total_penguins_by_sex']['by_island'][island]['male']
+        df = pd.DataFrame({'Famele': [dfa], 'Male':[dm], 'Total': dfa+dm})
+        st.write(df)
 
     if  island == 'dream':
         location= [-64.7333316, -64.2508425]
