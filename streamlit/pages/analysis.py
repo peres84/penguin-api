@@ -1,5 +1,5 @@
 import streamlit as st
-from support.apiConnection import distribution_details, breeding_preguin, all_details_penguin
+from support.apiConnection import distribution_details, breeding_preguin, get_penguin_details
 import pandas as pd
 import plotly.express as px
 from PIL import Image
@@ -8,8 +8,31 @@ import folium
 
 
 #@st.cache(allow_output_mutation=True, max_entries=1)
-def island_module(island):
-    
+def island_module():
+    island = st.selectbox('Select the Island', ['Dream', 'Torgersen', 'Biscoe']).lower()
+    species = st.multiselect('Choose the penguins to evalue the population', ['Adelie Penguin', 'Gentoo penguin', 'Chinstrap penguin'])
+    #st.write(species)
+    species_sex = []
+    total = []
+    #http://127.0.0.1:5000/penguin/especies/Adelie%20Penguin?island={island}&limit=100
+    for item in species:
+        data =  get_penguin_details(f"{item}?island={island}&limit=200")
+        for row in data:
+            species_sex.append(row['sex'] + ' ' + item)
+            total.append(1)
+            
+
+    #st.write(length_all)
+    #st.write(species_all)
+    lst_sex = [species_sex, total]
+    #st.write(lst)
+    df_total = pd.DataFrame(lst_sex).T
+    df_total = df_total.rename(columns={0:'Sex', 1:'Count'})
+
+    #st.write(df_total)
+    fig = px.pie(df_total, values='Count', names='Sex', title=f'Population of penguins in {island}')
+    st.plotly_chart(fig, use_container_width=True)
+
     data_island = distribution_details()
     st.subheader(f'Distribution in {island.capitalize()}')
     dfa = data_island['total_penguins_by_sex']['by_island'][island]['famele']
@@ -72,6 +95,42 @@ def island_signy(island):
     folium_static(m)
 
 
+def bill_length():
+
+    st.subheader('Culmen/lipper length distribution by species')
+    species = st.multiselect('Choose the penguins to evalue the length', ['Adelie Penguin', 'Gentoo penguin', 'Chinstrap penguin'])
+    #st.write(species)
+    species_all = []
+    culmen_all = []
+    lipper_all = []
+    for item in species:
+        data =  get_penguin_details(f"{item}?limit=300")
+
+        for row in data:
+            species_all.append(item)
+            culmen_all.append(row['body_features']['culmen_length_mm'])
+            lipper_all.append(row['body_features']['lipper_length_mm'])
+
+    #st.write(length_all)
+    #st.write(species_all)
+    lst_culmen = [species_all, culmen_all]
+    #st.write(lst)
+    df_culmen = pd.DataFrame(lst_culmen).T
+    df_culmen = df_culmen.rename(columns={0:'Species', 1:'bill_length'})
+    #st.write(df)
+    fig1 = px.violin(df_culmen, x="Species", y="bill_length", color="Species", box=True, points="all", hover_data=df_culmen.columns)
+    st.plotly_chart(fig1, use_container_width=True)
+
+    lst_lipper = [species_all, lipper_all]
+    #st.write(lst)
+    df_lipper = pd.DataFrame(lst_lipper).T
+    df_lipper = df_lipper.rename(columns={0:'Species', 1:'lipper_length'})
+    #st.write(df)
+    fig2 = px.violin(df_lipper, x="Species", y="lipper_length", color="Species", box=True, points="all", hover_data=df_lipper.columns)
+    st.plotly_chart(fig2, use_container_width=True)
+
+
+
 
 def analysis_page():
 
@@ -91,12 +150,12 @@ def analysis_page():
         Number of penguins per island, and total, Distribution of penguin species by island, \
         Number of penguins according to their sex, by island and total')
 
-    island_options = st.selectbox('Select the Island', ['Dream', 'Torgersen', 'Biscoe']).lower()
-    island_module(island_options)
+    island_module()
 
 
     st.write('Another usefull information about this penguins species is their reproducion from 1978 to 2015 \
         in the Signy Island')
 
     island_signy('Signy Island')
+    bill_length()
     

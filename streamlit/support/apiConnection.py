@@ -7,7 +7,6 @@ def get_penguin_details(endpoint):
     data = requests.get(url).json()
     return data
 
-
 def distribution_details():
     url = "http://127.0.0.1:5000/penguin/especies/distribution"
     distribution = requests.get(url).json()[0]
@@ -15,7 +14,7 @@ def distribution_details():
 
 def all_details_penguin():
     url = "http://127.0.0.1:5000//penguin/especies/list"
-    all_distribution = requests.get(url).json()[0]
+    all_distribution = requests.get(url).json()
     return all_distribution
 
 def breeding_preguin():
