@@ -13,6 +13,8 @@ Objectives:
 - Predominant species, and endangered species
 - Number of penguins according to their sex, by island and total
 
+
+
 ## Installation
 
 Before start We need to install the dependencies requeriments.txt and environment.yml, 
@@ -95,10 +97,31 @@ $ pip install -r requirements.txt
 
 ## Streamlit Description
 
+### Pages
+
+    - Home
+    - Analysis 
+    - Download DataFrames
+    - Update Data
+
+### Description 
+
+    - Home: Presentation of the project 
+    - Analysis: Here you can interactive with the data, each point will represent a previous objective. 
+    - Download DataFrames: Download the dataframes using in Analysis page.
+    - Update Data: Once you got your credentials, you will able to colaborate with our data, you can send information about this penguin and update the previus ones 
+
+## Support
+
+email: peresrjavier@gmail.com
 
 
+## Resources 
+
+Data From [Palmer Archipelago](https://www.kaggle.com/parulpandey/palmer-archipelago-antarctica-penguin-data)
+Data Breeding From [Population Size](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5082682/#pone.0164025.ref029) 
 
 ## License
-[All Right reserve PJ](https://github.com/peres84)
+[All Right Reserve PJ](https://github.com/peres84)
 
 
