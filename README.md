@@ -108,10 +108,10 @@ You may read this [Database Structure](api/dataBase_estructure.md)
 
 ### Description 
 
-    - Home: Presentation of the project 
-    - Analysis: Here you can interactive with the data, each point will represent a previous objective. 
-    - Download DataFrames: Download the dataframes using in Analysis page.
-    - Update Data: Once you got your credentials, you will able to colaborate with our data, you can send information about this penguin and update the previus ones 
+- Home: Presentation of the project 
+- Analysis: Here you can interactive with the data, each point will represent a previous objective. 
+- Download DataFrames: Download the dataframes using in Analysis page.
+- Update Data: Once you got your credentials, you will able to colaborate with our data, you can send information about this penguin and update the previus ones 
 
 ## Support
 

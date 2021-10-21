@@ -28,7 +28,7 @@
     "species_distribution" : {"chinstrap": {"dream": count_penguin, "torgersen": count_penguin, "biscoe": count_penguin},
                               "adelie": {"dream": count_penguin, "torgersen": count_penguin, "biscoe": count_penguin},
                               "gentoo": {"dream": count_penguin, "torgersen": count_penguin, "biscoe": count_penguin}
-                            },
+                            }
 
 }
 
