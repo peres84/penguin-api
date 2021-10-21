@@ -1,27 +1,3 @@
-# webs utilizadas para obtener data 
-## https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5082682/#pone.0164025.ref029
-
-
-# webs references 
-## https://pal.lternet.edu/
-## https://allisonhorst.github.io/palmerpenguins/articles/intro.html
-
-
-# Objetivos 
-
-## 1. Conocer peso medio de los pinguinos segun su especie (x)
-
-## 2. Cantidad de pinguinos por isla, y total (x) 
-
-## 3. Distribucion de especies de pinguinos por isla (x)  
-
-## 4. Apariamiento promedio de los pinguinos segun su tipo en la isla Signy (data web scrapping) (x) 
-
-## 5. Especie predominante, y especie en peligro de extinsion. (x) 
-
-## 6. Cantidad de pinguinos segun su sexo, por isla y total. (x) 
-
-
 # Database mongodb --> dbpenguin
 
 ## 1 Collection 

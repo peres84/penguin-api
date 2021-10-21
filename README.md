@@ -38,7 +38,7 @@ $ pip install -r requirements.txt
 
 ```
 
-## Api Rest 
+## API Rest 
 
 ### Enpoints 
 
@@ -95,6 +95,8 @@ $ pip install -r requirements.txt
         - username --> Set your username (Contact suport to get your credentials)
         - password --> Set your password (Contact suport to get your credentials)
 
+you may read this [Database Structure](api/src/docs/dataBase_estructure.md)
+
 ## Streamlit Description
 
 ### Pages
@@ -115,11 +117,10 @@ $ pip install -r requirements.txt
 
 email: peresrjavier@gmail.com
 
-
 ## Resources 
 
-Data From [Palmer Archipelago](https://www.kaggle.com/parulpandey/palmer-archipelago-antarctica-penguin-data)
-Data Breeding From [Population Size](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5082682/#pone.0164025.ref029) 
+- Data Penguins From [Palmer Archipelago](https://www.kaggle.com/parulpandey/palmer-archipelago-antarctica-penguin-data)
+- Data Breeding From [Population Size](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5082682/#pone.0164025.ref029) 
 
 ## License
 [All Right Reserve PJ](https://github.com/peres84)
