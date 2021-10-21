@@ -11,4 +11,4 @@ db = client.get_database("dbml-penguin")
 penguin_details = db.penguin_details
 distribution_details = db.distribution_details
 penguin_breeding_signy = db.penguin_breeding_signy
-messages = db.messages
+check_messages = db.messages

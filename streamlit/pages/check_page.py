@@ -2,11 +2,14 @@ import streamlit as st
 from support.apiConnection import check_list_message, add_data, update_data
 import pandas as pd
 from PIL import Image
+from dotenv import load_dotenv 
+import os
+load_dotenv()
+user_check = os.getenv("MONGO_USER")
+pass_check = os.getenv("MONGO_PASS")
 
 
-
-
-def user_add_data():
+def user_add_data(username, password):
     st.write('In order to add you data sucesfully please put the values for each box:')
 
     col1, col2 = st.columns(2)
@@ -24,18 +27,20 @@ def user_add_data():
         sex = st.selectbox('Choose your sex', ('None', 'Female', 'Male'))
         #st.write('The current sex is: ', sex)
 
-    if penguin != None and weight > 0 and location != 'None' and sex != 'None':
+    if username != user_check or password != pass_check:
+        color = '#FF0000'
+        st.markdown(f"<div style='background-color: {color}'>**Username or Password Incorrect**</div>", unsafe_allow_html=True)
+    elif penguin != None and weight > 0 and location != 'None' and sex != 'None':
 
         if st.button('Send Data'):
-            add_data(penguin, weight, sex, location)
+            add_data(penguin, weight, sex, location, username, password)
             color = '#00FF00'
             st.markdown(f"<div style='background-color: {color}'>**Added Successfully**</div>", unsafe_allow_html=True)
-
     else:
         color = '#FF0000'
         st.markdown(f"<div style='background-color: {color}'>**PLEASE FILL ALL THE FORM**</div>", unsafe_allow_html=True)
       
-def update_exist_data():
+def update_exist_data(username, password):
 
     st.write('In order to add update your data sucesfully please put the values for each box:')
     col1, col2 = st.columns(2)
@@ -56,14 +61,15 @@ def update_exist_data():
         #st.write('location:', location)
         sex = st.selectbox('Choose your sex', ('None', 'Female', 'Male'))
         #st.write('The current sex is: ', sex)
-
-    if penguin != None and weight > 0 and location != 'None' and sex != 'None' and id > 0:
+    if username != user_check or password != pass_check:
+        color = '#FF0000'
+        st.markdown(f"<div style='background-color: {color}'>**Username or Password Incorrect**</div>", unsafe_allow_html=True)
+    elif penguin != None and weight > 0 and location != 'None' and sex != 'None' and id > 0:
 
         if st.button('Update Data'):
-            update_data(penguin, weight, sex, location, id)
+            update_data(penguin, weight, sex, location, id, username, password)
             color = '#00FF00'
-            st.markdown(f"<div style='background-color: {color}'>**Added Successfully**</div>", unsafe_allow_html=True)
-
+            st.markdown(f"<div style='background-color: {color}'>**Updated Successfully**</div>", unsafe_allow_html=True)
     else:
         color = '#FF0000'
         st.markdown(f"<div style='background-color: {color}'>**PLEASE FILL ALL THE FORM**</div>", unsafe_allow_html=True)
@@ -73,20 +79,25 @@ def main_dashboard():
     st.header("If you want to contrubute with our data, feel free to send your query")
     image = Image.open('pages/img/penguin.png')
     st.image(image)
+    st.write('Please first login, to continue:')
 
-    option = st.selectbox('Choose your query', ('None', 'Add Data', 'Update Data', 'Check Data'))
+    username = st.text_input('Username: ')
+    password = st.text_input('Password: ')
 
-    if option == 'Add Data':
-        user_add_data()
-    elif option == 'Check Data':
-        data = check_list_message()
-        df = pd.DataFrame(data)
-        st.write(df)
-    elif option == 'Update Data':
-        #something
-        update_exist_data()
-    else:
-        st.write('select an option')
+    if username or password:
+        
+        option = st.selectbox('Choose your query', ('None', 'Add Data', 'Update Data', 'Check Data'))
+        if option == 'Add Data':
+            user_add_data(username, password)
+        elif option == 'Check Data':
+            data = check_list_message()
+            df = pd.DataFrame(data)
+            st.write(df)
+        elif option == 'Update Data':
+            #something
+            update_exist_data(username, password)
+        else:
+            st.write('select an option')
 
 
 
