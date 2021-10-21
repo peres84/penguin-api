@@ -11,52 +11,54 @@ import folium
 def island_module():
 
 
-    island = st.selectbox('Select the Island', ['Dream', 'Torgersen', 'Biscoe']).lower()
-    species = st.multiselect('Choose the penguins to evalue the population', ['Adelie Penguin', 'Gentoo penguin', 'Chinstrap penguin'])
-    #st.write(species)
-    species_sex = []
-    total = []
-    #http://127.0.0.1:5000/penguin/especies/Adelie%20Penguin?island={island}&limit=100
-    for item in species:
-        data =  get_penguin_details(f"{item}?island={island}&limit=200")
-        for row in data:
-            species_sex.append(row['sex'] + ' ' + item)
-            total.append(1)
-            
+    island = st.selectbox('Select the Island', ['None','Dream', 'Torgersen', 'Biscoe']).lower()
+    if island != 'none':
+        species = st.multiselect('Choose the penguins to evalue the population', ['Adelie Penguin', 'Gentoo penguin', 'Chinstrap penguin'])
+        #st.write(species)
+        species_sex = []
+        total = []
+        #http://127.0.0.1:5000/penguin/especies/Adelie%20Penguin?island={island}&limit=100
+        for item in species:
+            data =  get_penguin_details(f"{item}?island={island}&limit=200")
+            for row in data:
+                species_sex.append(row['sex'] + ' ' + item)
+                total.append(1)
+                
 
-    #st.write(length_all)
-    #st.write(species_all)
-    lst_sex = [species_sex, total]
-    #st.write(lst)
-    df_total = pd.DataFrame(lst_sex).T
-    df_total = df_total.rename(columns={0:'Sex', 1:'Count'})
-    col1, col2 = st.columns([1,2])
-    with col2:
-        #st.write(df_total)
-        fig = px.pie(df_total, values='Count', names='Sex', title=f'Population of penguins in {island}')
-        st.plotly_chart(fig, use_container_width=True)
+        #st.write(length_all)
+        #st.write(species_all)
+        lst_sex = [species_sex, total]
+        #st.write(lst)
+        df_total = pd.DataFrame(lst_sex).T
+        df_total = df_total.rename(columns={0:'Sex', 1:'Count'})
+        col1, col2 = st.columns([1,2])
+        with col2:
+            #st.write(df_total)
+            fig = px.pie(df_total, values='Count', names='Sex', title=f'Population by sex in {island}')
+            st.plotly_chart(fig, use_container_width=True)
 
-    with col1:
-        data_island = distribution_details()
-        st.subheader(f'Distribution in {island.capitalize()}')
-        dfa = data_island['total_penguins_by_sex']['by_island'][island]['famele']
-        dm = data_island['total_penguins_by_sex']['by_island'][island]['male']
-        df = pd.DataFrame({'Famele': [dfa], 'Male':[dm], 'Total': dfa+dm})
-        st.write(df)
+        with col1:
 
-    if  island == 'dream':
-        location= [-64.7333316, -64.2508425]
-    elif island == 'torgersen':
-        location= [-64.7666354, -64.0896808]
-    else:
-        location= [-64.8038213, -63.8501337]
-    #st.markdown(f"<div style='background-color: #FF0000'>Hello</div>", unsafe_allow_html=True)
-    m = folium.Map(location, zoom_start=12, width="100%", height="%100")
-    # add marker for Liberty Bell
-    tooltip = 'Palmer Archipelago'
-    folium.Marker(location, popup=f"{island}", tooltip=tooltip).add_to(m)
-    st.subheader('Map')
-    folium_static(m)
+            data_island = distribution_details()
+            st.subheader(f'Distribution in {island.capitalize()}')
+            dfa = data_island['total_penguins_by_sex']['by_island'][island]['famele']
+            dm = data_island['total_penguins_by_sex']['by_island'][island]['male']
+            df = pd.DataFrame({'Famele': [dfa], 'Male':[dm], 'Total': dfa+dm})
+            st.write(df)
+
+        if  island == 'dream':
+            location= [-64.7333316, -64.2508425]
+        
+        elif island == 'torgersen':
+            location= [-64.7666354, -64.0896808]
+        else:
+            location= [-64.8038213, -63.8501337]
+
+        m = folium.Map(location, zoom_start=12, width="100%", height="%100")
+        tooltip = 'Palmer Archipelago'
+        folium.Marker(location, popup=f"{island}", tooltip=tooltip).add_to(m)
+        st.subheader('Map')
+        folium_static(m)
   
 def island_signy(island):
     st.subheader('Average born by Specie from 1978 to 2015 Signy Island')
@@ -90,9 +92,15 @@ def island_signy(island):
         mime='text/csv')
     fig = px.line(df)
     st.plotly_chart(fig, use_container_width=True, title = "Breeding by year of each Specie")
-
+    
+    st.write("Average breeding by specie all time")
+    species = ['Adelie Penguin', 'Gentoo penguin', 'Chinstrap penguin']
+    avg_breeding_total = [df['Adelie'].mean(), df['Gento'].mean(), df['Chinstrap'].mean()]
+    df2 = pd.DataFrame(dict(Name=species, Total_avg = avg_breeding_total ))
+    fig2 = px.bar(df2, x=df2.Name, y=df2.Total_avg, color=["red", "goldenrod", "#00D"], color_discrete_map="identity")
+    st.plotly_chart(fig2, use_container_width=True)
     st.subheader('Map Location')
-    location = [-60.6769774, -45.8848705]
+    location = [-60.737786, -45.6731513]
     tooltip = 'Palmer Archipelago'
     m = folium.Map(location, zoom_start=9, width="100%", height="%100")
     folium.Marker(location, popup=f"{island}", tooltip=tooltip).add_to(m)
@@ -103,7 +111,9 @@ def bill_length():
 
     st.subheader('Culmen/lipper length distribution by species')
     species = st.multiselect('Choose the penguins to evalue the length', ['Adelie Penguin', 'Gentoo penguin', 'Chinstrap penguin'])
-    #st.write(species)
+    st.subheader('Check the image to see the characteristics of the penguins body.')
+    image = Image.open('pages/img/PenguinMeasurements.png')
+    st.image(image)
     species_all = []
     culmen_all = []
     lipper_all = []
@@ -117,6 +127,7 @@ def bill_length():
 
     #st.write(length_all)
     #st.write(species_all)
+
     lst_culmen = [species_all, culmen_all]
     #st.write(lst)
     df_culmen = pd.DataFrame(lst_culmen).T
@@ -128,10 +139,11 @@ def bill_length():
     lst_lipper = [species_all, lipper_all]
     #st.write(lst)
     df_lipper = pd.DataFrame(lst_lipper).T
-    df_lipper = df_lipper.rename(columns={0:'Species', 1:'lipper_length'})
+    df_lipper = df_lipper.rename(columns={0:'Species', 1:'flipper_length'})
     #st.write(df)
-    fig2 = px.violin(df_lipper, x="Species", y="lipper_length", color="Species", box=True, points="all", hover_data=df_lipper.columns)
+    fig2 = px.violin(df_lipper, x="Species", y="flipper_length", color="Species", box=True, points="all", hover_data=df_lipper.columns)
     st.plotly_chart(fig2, use_container_width=True)
+
 
 
 
@@ -141,6 +153,12 @@ def analysis_page():
     image = Image.open('pages/img/penguin.png')
     st.image(image)
     st.title(" Analysis of Palmer Archipelago (Antarctica)")
+
+    st.write('In this section you will have full details about penguins on each island, you can know: \
+        Number of penguins per island, and total, Distribution of penguin species by island, \
+        Number of penguins according to their sex, by island and total')
+    island_module()
+
     st.write('here, you can see the average weight of penguins according to their species')
     data = distribution_details()['average_weight']
     df = pd.DataFrame(dict(Species=data.keys(), Weight=data.values()))
@@ -148,13 +166,6 @@ def analysis_page():
     
     fig = px.bar(df, x=df.Species, y=df.Weight, color=["red", "goldenrod", "#00D"], color_discrete_map="identity")
     st.plotly_chart(fig, use_container_width=True)
-
-
-    st.write('In this section you will have full details about penguins on each island, you can know: \
-        Number of penguins per island, and total, Distribution of penguin species by island, \
-        Number of penguins according to their sex, by island and total')
-
-    island_module()
 
 
     st.write('Another usefull information about this penguins species is their reproducion from 1978 to 2015 \

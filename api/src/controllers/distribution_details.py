@@ -1,5 +1,5 @@
 from src.app import app
-from flask import request
+#from flask import request
 from src.utils.json_resp import serialize
 from src.utils.mongoConnection import distribution_details
 

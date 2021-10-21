@@ -2,21 +2,28 @@ import streamlit as st
 import pandas as pd
 from fpdf import FPDF
 import base64
+from support.apiConnection import breeding_preguin 
 
 def data_page():
     st.title("Data from Palmer Archipelago (Antarctica)")
 
-    df = pd.read_csv("../data/species_details.csv")
-    df = df.drop('Unnamed: 0', axis=1)
-    st.write(df)
-    st.download_button(
-        label="Download CSV of Species Details ",
-        data = df.to_csv().encode('utf-8'),
-        file_name='Species Details.csv',
-        mime='text/csv')
+    data = breeding_preguin()
+    data_years = [int(row['year']) for row in data]
+    data_average_born = [row['average_born_by_species']  for row in data]
 
-    df = pd.read_csv("../data/breeding_pairs.csv")
-    df = df.drop('Unnamed: 0', axis=1)
+    gento_y = []
+    chinstrap_y = []
+    adelie_y = []
+
+    for value in data_average_born:
+        gento_y.append(value['gentoo'])
+        chinstrap_y.append(value['chinstrap'])
+        adelie_y.append(value['adelie'])
+
+    lst = [data_years, gento_y, chinstrap_y, adelie_y]
+    df = pd.DataFrame(lst).T
+    df = df.rename(columns={0: 'year', 1: 'Gento', 2: 'Chinstrap', 3: 'Adelie'})
+    df = df.set_index('year')
     st.write(df)
     st.download_button(
         label="Download CSV of Breeding Pairs Signy Island",
