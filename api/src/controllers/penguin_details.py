@@ -88,7 +88,7 @@ def penguin_specie_by_weight():
                     {"weight": {"$lte" : max_w}}
                 ]
             }
-        penguin = penguin_details.find(q).limit(limit)
+        penguin = penguin_details.find(q).sort("weight",-1).limit(limit)
 
     else:
         q = {"specie":specie,
