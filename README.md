@@ -1,8 +1,8 @@
 # Palmer Archipelago (Antarctica)
 
-![](streamlit\pages\img\penguin.png)
+![](streamlit/pages/img/penguin.png)
 
-##About 
+## About 
 The objective of this project is to have a better understanding of the penguins in the palmer archipelago, to achieve this, we are going to describe 6 basic objective:
 
 Objectives:
@@ -22,35 +22,33 @@ Some basic Git commands are:
 ```
 
 #create new directory
-mkdir penguin-project
+mkdir <folder name>
 
 #clone the repository 
-git init
-git clone https://github.com/peres84/BootCampProject_1.git
+$ git init
+$ git clone https://github.com/peres84/BootCampProject_1.git
 
 #setup your environment as 'streamlit' 
-conda create -f environment.yml
+$ conda create -f environment.yml
 
 #adding dependencies 
-pip install -r requirements.txt 
+$ pip install -r requirements.txt 
 
 ```
 
 ## Api Rest 
 
-###Controllers 
+### Enpoints 
 
-#### Enpoints 
-
-1. /penguin/welcome - check if all is ok, you will receive "welcome" : "penguin Api"
+1. /penguin/welcome - check if all is ok
 2. /penguin/especies/list - GET
     - **Params**
-    > island  - ['dream', 'torgersen', 'biscoe'] Select the island to search 
-    > limit  -  Ex. limit=10 set the max items to show 
+        - island  - ['dream', 'torgersen', 'biscoe'] Select the island to search 
+        - limit  -  Ex. limit=10 set the max items to show 
     
 
 
 ## License
-[PJ](https://github.com/peres84)
+[All Right reserve PJ](https://github.com/peres84)
 
 
