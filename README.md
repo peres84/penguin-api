@@ -95,7 +95,7 @@ $ pip install -r requirements.txt
         - username --> Set your username (Contact suport to get your credentials)
         - password --> Set your password (Contact suport to get your credentials)
 
-you may read this [Database Structure](api/src/docs/dataBase_estructure.md)
+you may read this [Database Structure](BootCampProject_1/api/src/docs/dataBase_estructure.md)
 
 ## Streamlit Description
 
