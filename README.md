@@ -95,6 +95,10 @@ $ pip install -r requirements.txt
         - username --> Set your username (Contact suport to get your credentials)
         - password --> Set your password (Contact suport to get your credentials)
 
+10. /messages/list - GET
+    - **No Params**
+        - Check the list you added 
+
 You may read this [Database Structure](api/dataBase_estructure.md)
 
 ## Streamlit Description
