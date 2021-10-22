@@ -36,6 +36,7 @@ def insert_message(penguin = None, weight = None, sex = None, location = None, u
     load_dotenv()
     user_check = os.getenv("MONGO_USER")
     pass_check = os.getenv("MONGO_PASS")
+    #escribir funcion check = None
     if penguin == None:
         raise MissingArgumentError(penguin)
     elif weight == None:
