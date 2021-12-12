@@ -2,7 +2,7 @@ import requests
 from dotenv import load_dotenv 
 import os
 load_dotenv()
-url_main = os.getenv("url_main")
+url_main = os.getenv("URL")
 
 def get_penguin_details(endpoint):
     url = f"{url_main}/penguin/especies/" + endpoint
