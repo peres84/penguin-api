@@ -3,7 +3,7 @@
 ![](streamlit/pages/img/penguin.png)
 
 ## About 
-The objective of this project is to have a better understanding of the penguins in the palmer archipelago, to achieve this, we are going to describe 6 basic objective:
+The goal of this project is to have a better understanding of the penguins in the palmer archipelago, to achieve this, we are going to describe 6 basic objective:
 
 Objectives:
 - Know the average weight of penguins according to their species
